@@ -12,10 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['username']) && !empty
     $name = $_POST['username'];
     $message = $_POST['message'];
     $statement = $db->prepare("INSERT INTO posts (name, message) VALUES (:name, :message)");
-    $statement->execute([
-        ':name' => $name,
-        ':message' => $message
-    ]);
+    $statement->bindParam(":name",$name);
+    $statement->bindParam(":message",$message);
+    $statement->execute();
 endif;
 ?>
 
